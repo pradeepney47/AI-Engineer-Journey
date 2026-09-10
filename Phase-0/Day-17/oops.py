@@ -68,7 +68,7 @@ dog2.name = "Payne"
 # class attribute
 # can be shared and accessed by its instance objects
 class Dog:
-    species = "Canine"
+    species = "Canine" #class attribute
 
 # self and __init__
 
@@ -138,8 +138,8 @@ cat2.meow()
 
 class Dog:
     def set_name(self, name):
-        self.name = name #shared class attribute
-        self.species = "Canine" #shared class attribute
+        self.name = name #instance attribute
+        self.species = "Canine" #instance attribute
 
 dog1 = Dog()
 dog2 = Dog()
