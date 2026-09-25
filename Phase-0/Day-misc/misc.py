@@ -1,5 +1,75 @@
 # Misc here is Python concepts as Q and A
 
+
+# QA 0. A useful coding principle about return statement
+
+# try / except / else
+#         ↓
+# Choose what code executes
+
+# return
+#         ↓
+# Decide whether the FUNCTION stops and gives a value back
+
+# They are independent mechanisms.
+# So your earlier intuition about return was good, but the rule is:
+# Put return wherever you want the function to stop and optionally send a value back.
+# It can be inside try, except, else, if, elif, or else, or nowhere at all.
+
+
+
+# return means exit the function
+# continue means exit this iteration of the loop and immediately start the next iteration of the loop
+# break means exit the entire loop, but continue executing the function after the loop
+
+
+
+# Exactly. That's the correct mental model.
+# return is independent of the control structure.
+
+# You can have it inside:
+
+# try:
+#     return value
+# except Exception:
+#     return None
+# else:
+#     return value
+# if condition:
+#     return value
+# elif condition:
+#     return value
+# else:
+#     return value
+# And the meaning is always:
+# Stop executing this function immediately and optionally give a value back to the caller.
+# If no return is reached, the function eventually reaches its end:
+# def example():
+#     print("Done")
+# Python effectively does:
+# def example():
+#     print("Done")
+#     return None
+# So there are really two separate questions:
+# 1. Which code path should execute?
+
+# if / elif / else
+# try / except / else
+
+# 2. Should the function continue or stop?
+
+# return
+
+# That's the distinction you've just got. 
+
+
+
+
+
+
+
+
+
 # QA 1.
 
 # Q1.:
