@@ -1,16 +1,15 @@
 # Day 30: Python Engineering Mini-Project
 
-
 # Project: CLI API Data Explorer
 # To build a small command-line application that takes a 
 # user ID, calls an HTTP API, processes the JSON response, and displays useful information
 
 # Application logic / CLI entry-point logic
 
-
-from api_client import get_user
+from api_client import get_user, get_users
 import sys
 import logging
+# import asyncio
 
 logging.basicConfig(level=logging.INFO)
 
@@ -18,46 +17,79 @@ print()
 print("Project: CLI API Data Explorer")
 print()
 
-# Part 1: CLI
-
 def main():
 
-    # cli argument validation
+    if len(sys.argv) < 3:
+        user_message()
+        return
     
-    if len(sys.argv) != 3:
-        print("Usage: python app.py <resource> <id>")
-        print()
-    else:
-        resource = sys.argv[1]
-        try:
-            resource_id = int(sys.argv[2])
-        except ValueError:
-            print("Resource ID must be an integer")
+    resource = sys.argv[1]
+    
+    if resource == "user":
+    
+        if len(sys.argv) > 3:
+            user_message()
+            return
+    
         else:
-            # user is one resource type, and post and todo are other resource types exposed by the same API
-            # Part 3: Connecting CLI and API Client and fetching the data from API
+            try:
+                resource_id = int(sys.argv[2])
 
-            if resource == "user":
-                # print("Resource: ", resource)
-                # print("ID: ", resource_id)
-                data = get_user(resource_id)
-                # Part 4: Error handling from CLI and response (None from HTTP Error)
-                # When a function can fail, the caller needs to know how failure is represented
-                # guarding against an invalid/missing result
-                # print(data)
-                # print(type(data))
-                if data is None:
-                    print("Check whether the user id typed is correct!")
-                    # return
-                else:
-                    print("User ID: ", data["id"])
-                    print("Name: ", data["name"])
-                    print("User Name: ", data["username"])
-                    print("Email: ", data["email"])
+            except ValueError:
+                
+                print("Resoruce ID must be an integer")
+                return
+    
             else:
-                print("Check whether the resource typed is correct!")
 
+                data = get_user(resource_id)
+    
+                if data is None:
+                    print("Check whether the user ID typed is correct!")
+                    return
+    
+                else:
+                    print("User ID:", data["id"])
+                    print("Name:", data["name"])
+                    print("Username:", data["username"])
+                    print("Email:", data["email"])
+    
+    elif resource == "users":
+        try:
+            user_ids = [int(value) for value in sys.argv[2:]]
+        except ValueError:
+            print("All user IDs must be integers")
+            return
+    
+        else:
 
-# If this file is being run directly, execute main()
+            data = get_users(user_ids)
+            # print(type(data))
+            # print(type(data[0]))
+            # print()
+            # print(data)
+            # print()
+
+            for user_id, user in zip(user_ids, data):
+                
+                if user is None:
+                    print()
+                    print(f"User ID {user_id} does not exist!")
+                    continue
+
+                print()
+                print("User ID:", user["id"])                    
+                print("Name:", user["name"])
+                print("Username:", user["username"])
+                print("Email:", user["email"])
+    
+    else:
+        print("Unknown resource")
+
+def user_message():
+    print("Usage: python app.py user <id>")
+    print("       python app.py users <id1> <id2> ... <idN>")
+    print()
+
 if __name__ == "__main__":
     main()
