@@ -745,3 +745,43 @@ This distinction will become very useful when we reach FastAPI and AI backends l
 
 # Part 9
 # Final review
+
+
+
+
+
+
+
+
+Async from fresh eyes
+Why synchronous get_users() waits
+What async actually changes
+asyncio.to_thread()
+asyncio.gather()
+Trace our actual user IDs through the async flow
+Integrate it into the project
+Error handling
+api_client.py: network/API failures
+app.py: invalid input/application-level failures
+Test with internet available
+Test with internet unavailable
+Decide which layer should handle what
+Code structure
+Input validation → routing → execution → result handling → presentation
+Examine whether our current main() follows that natural flow
+Refactor only where it genuinely improves clarity
+Testing from fresh eyes
+Unit tests
+Mocking HTTP
+Testing success/failure paths
+Testing async behavior
+Project review
+Python engineering concepts we actually used
+Architecture and separation of concerns
+What we learned from the project
+Final cleanup
+Naming
+Type hints
+Comments/docstrings where useful
+README/documentation if needed
+Final run and tests
